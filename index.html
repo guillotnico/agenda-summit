@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Community Leads Summit 2026 — Agenda</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #fff; color: #0a0a0a; font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; }
+.page { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* Language bar */
+.langbar { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+.langsel {
+  font-family: inherit; font-size: 13px; font-weight: 600; color: #0a0a0a;
+  background: #fafafa; border: 2px solid #e4e4e4; border-radius: 999px;
+  padding: 8px 14px; cursor: pointer; transition: border-color .12s ease;
+}
+.langsel:hover { border-color: #0a0a0a; }
+.langsel:focus-visible { outline: 3px solid #c6ff00; outline-offset: 2px; }
+
+/* Header */
+.kicker { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #6b6b6b; font-weight: 600; margin-bottom: 10px; }
+h1 { font-size: 44px; line-height: 1.02; margin: 0 0 12px; font-weight: 700; letter-spacing: -.02em; }
+.sub { font-size: 16px; line-height: 1.5; color: #3a3a3a; max-width: 560px; margin: 0; }
+.fluo { background: #c6ff00; padding: 1px 6px; border-radius: 4px; font-weight: 600; color: #0a0a0a; }
+.counter { display: inline-flex; align-items: baseline; gap: 8px; margin-top: 20px; padding: 10px 16px; border: 2px solid #0a0a0a; border-radius: 999px; }
+.counter-num { font-size: 22px; font-weight: 700; }
+.counter-label { font-size: 13px; color: #6b6b6b; font-weight: 500; }
+
+/* Theme parcours */
+.themes { margin: 28px 0 8px; padding: 20px; background: #0a0a0a; border-radius: 16px; }
+.themes-head { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #c6ff00; font-weight: 700; margin-bottom: 6px; }
+.themes-sub { font-size: 13px; color: #b5b5b5; margin: 0 0 14px; line-height: 1.45; }
+.theme-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.theme-btn { font-family: inherit; font-size: 13px; font-weight: 600; color: #fff; background: #1f1f1f; border: 2px solid #3a3a3a; padding: 10px 14px; border-radius: 999px; cursor: pointer; transition: all .12s ease; display: inline-flex; align-items: center; gap: 7px; }
+.theme-btn:hover { border-color: #c6ff00; transform: translateY(-2px); }
+.theme-btn:focus-visible { outline: 3px solid #c6ff00; outline-offset: 2px; }
+.theme-btn.on { background: #c6ff00; color: #0a0a0a; border-color: #c6ff00; box-shadow: 0 6px 20px rgba(198,255,0,.35); }
+.theme-btn .count { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; background: rgba(255,255,255,.12); padding: 1px 7px; border-radius: 999px; }
+.theme-btn.on .count { background: rgba(0,0,0,.15); }
+
+/* Conflict banner */
+.banner { display: none; align-items: center; gap: 10px; background: #fff0f0; border: 2px solid #e23b3b; border-radius: 12px; padding: 12px 16px; margin-bottom: 24px; font-size: 14px; color: #b02020; font-weight: 600; }
+.banner.show { display: flex; }
+.banner .dot { width: 8px; height: 8px; border-radius: 50%; background: #e23b3b; flex-shrink: 0; }
+
+/* Slots */
+.slot { margin-bottom: 30px; }
+.slot-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.slot-time { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.slot-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #6b6b6b; font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+.card { position: relative; text-align: left; background: #fafafa; border: 2px solid #e4e4e4; border-radius: 14px; padding: 16px; cursor: pointer; transition: transform .12s ease, border-color .12s ease, background .12s ease, box-shadow .12s ease, opacity .12s ease; font-family: inherit; color: #0a0a0a; display: flex; flex-direction: column; gap: 6px; }
+.card:hover { border-color: #0a0a0a; transform: translateY(-2px); }
+.card:focus-visible { outline: 3px solid #c6ff00; outline-offset: 2px; }
+.card.active { background: #ecffb0; border-color: #c6ff00; box-shadow: 0 0 0 3px #c6ff00, 0 8px 24px rgba(150,200,0,.28); }
+.card.active:hover { border-color: #c6ff00; }
+.card.blocked { cursor: not-allowed; opacity: .5; background: #fff5f5; border-color: #ffcdcd; border-style: dashed; }
+.card.blocked:hover { transform: none; border-color: #ffcdcd; }
+.card.blocked .card-title, .card.blocked .card-speaker, .card.blocked .card-desc { color: #9a6a6a; }
+.conflict-badge { position: absolute; top: -9px; right: 14px; font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: #e23b3b; color: #fff; padding: 3px 8px; border-radius: 6px; display: none; }
+.card.blocked .conflict-badge { display: inline-block; }
+
+.card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+.check { width: 20px; height: 20px; border-radius: 6px; border: 2px solid #b0b0b0; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; transition: all .12s ease; }
+.check.on { background: #0a0a0a; border-color: #0a0a0a; color: #c6ff00; }
+.card.blocked .check { border-color: #d8a0a0; }
+.room-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; background: #0a0a0a; color: #fff; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+.card.active .room-tag { color: #c6ff00; }
+.time-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .04em; color: #6b6b6b; font-weight: 700; }
+.reco { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #5a7a00; background: #dfff8a; padding: 3px 8px; border-radius: 6px; }
+.card-title { font-size: 15px; font-weight: 700; line-height: 1.25; }
+.card-speaker { font-size: 12px; font-weight: 600; color: #4a4a4a; }
+.card-desc { font-size: 12.5px; line-height: 1.45; color: #555; }
+.card.active .card-desc, .card.active .card-speaker { color: #3a4a10; }
+
+/* Agenda */
+.agenda-wrap { margin-top: 56px; padding-top: 32px; border-top: 2px solid #0a0a0a; }
+h2 { font-size: 28px; font-weight: 700; margin: 0 0 18px; letter-spacing: -.02em; }
+.empty { font-size: 15px; color: #6b6b6b; font-style: italic; line-height: 1.5; }
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.row { display: flex; gap: 18px; padding: 14px 0; border-bottom: 1px solid #eaeaea; }
+.row.pick { background: #f3ffd0; margin: 0 -12px; padding: 14px 12px; border-radius: 10px; border-bottom: 1px solid transparent; border-left: 4px solid #c6ff00; }
+.row-time { flex-shrink: 0; width: 56px; font-family: 'Space Mono', monospace; }
+.row-start { font-size: 15px; font-weight: 700; }
+.row-end { font-size: 11px; color: #999; }
+.row-title { font-size: 15px; font-weight: 700; line-height: 1.25; margin-bottom: 4px; }
+.row-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.row-room { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; background: #0a0a0a; color: #c6ff00; padding: 2px 7px; border-radius: 5px; font-weight: 700; }
+.row-speaker { font-size: 13px; color: #555; font-weight: 500; }
+
+@media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="langbar">
+    <select class="langsel" id="langsel" aria-label="Language"></select>
+  </div>
+
+  <header>
+    <div class="kicker" id="t-kicker"></div>
+    <h1 id="t-h1"></h1>
+    <p class="sub" id="t-sub"></p>
+    <div class="counter"><span class="counter-num" id="count">0</span><span class="counter-label" id="t-counterLabel"></span></div>
+  </header>
+
+  <section class="themes">
+    <div class="themes-head" id="t-themesHead"></div>
+    <p class="themes-sub" id="t-themesSub"></p>
+    <div class="theme-btns" id="theme-btns"></div>
+  </section>
+
+  <div class="banner" id="banner"><span class="dot"></span><span id="banner-text"></span></div>
+
+  <div id="slots"></div>
+
+  <section class="agenda-wrap">
+    <h2 id="t-agendaTitle"></h2>
+    <div id="agenda"></div>
+  </section>
+</div>
+
+<script>
+// ══ UI TRANSLATIONS — 24 official EU languages ══════════════════════
+// Only interface strings are translated. Talk titles, descriptions,
+// speakers, rooms and product names stay in English everywhere.
+const UI = {
+  "bg": {"kicker":"Среща на ръководителите на общности 2026 · Берлин","h1":"Създай своята програма","sub":"Избери по една сесия за всеки интервал, за да я <span class='fluo'>откроиш</span>. Щом даден час е зает, сесиите, които се припокриват с него, стават автоматично недостъпни.","counterLabel":"/ 4 избрани интервала","themesHead":"Бързи маршрути","themesSub":"Едно кликване маркира сесиите по тема (припокриванията се пропускат автоматично). Кликни отново същия маршрут, за да изчистиш всичко.","bannerTpl":"«{title}» ({start}–{end}) вече заема този интервал в програмата ти — сесиите по същото време са недостъпни.","agendaTitle":"Моята програма","empty":"Все още няма нищо избрано. Избери сесиите си по-горе — ще се появят тук в реда на деня.","conflict":"⚠ същ интервал","lunch":"Обедна почивка 🌳","lunchSpk":"Зала Kiez (етаж 0) — градината","coffee":"Кафе пауза 🍦","coffeeSpk":"Време е за сладолед","keynote":"Откриваща реч","closing":"Заключителни думи и обща снимка","closingSpk":"Всички се събират в Dickes B","themeIa":"ИИ и модели","themeBuilder":"Създаване / Практика","themeCommunity":"Общност и организатори","themeTech":"Високи технологии","regional":"Регионално време","suggested":"предложено"},
+  "cs": {"kicker":"Setkání vedoucích komunit 2026 · Berlín","h1":"Sestav si svůj program","sub":"Vyber jednu relaci v každém čase, aby se <span class='fluo'>zvýraznila</span>. Jakmile je čas obsazený, relace, které se s ním překrývají, se automaticky stanou nedostupnými.","counterLabel":"/ 4 zvolené časy","themesHead":"Rychlé trasy","themesSub":"Jedno kliknutí zaškrtne relace podle tématu (překryvy se automaticky přeskočí). Klikni znovu na stejnou trasu pro vymazání všeho.","bannerTpl":"«{title}» ({start}–{end}) už tento čas v tvém programu zabírá — relace ve stejnou dobu jsou nedostupné.","agendaTitle":"Můj program","empty":"Zatím nic není vybráno. Vyber si relace výše — objeví se zde v pořadí dne.","conflict":"⚠ stejný čas","lunch":"Polední přestávka 🌳","lunchSpk":"Místnost Kiez (přízemí) — zahrada","coffee":"Přestávka na kávu 🍦","coffeeSpk":"Čas na zmrzlinu","keynote":"Úvodní projev","closing":"Závěrečná slova a společné foto","closingSpk":"Všichni se sejdou v Dickes B","themeIa":"AI a modely","themeBuilder":"Tvorba / Praxe","themeCommunity":"Komunita a organizátoři","themeTech":"Pokročilá technika","regional":"Regionální čas","suggested":"doporučeno"},
+  "da": {"kicker":"Community Leads Summit 2026 · Berlin","h1":"Byg din dagsorden","sub":"Vælg én session pr. tidsrum for at <span class='fluo'>fremhæve</span> den. Når et tidsrum er optaget, bliver sessioner, der overlapper det, automatisk utilgængelige.","counterLabel":"/ 4 valgte tidsrum","themesHead":"Hurtige spor","themesSub":"Ét klik vælger sessionerne i et tema (overlap springes automatisk over). Klik på samme spor igen for at rydde alt.","bannerTpl":"«{title}» ({start}–{end}) optager allerede dette tidsrum i din dagsorden — sessioner på samme tid er utilgængelige.","agendaTitle":"Min dagsorden","empty":"Intet valgt endnu. Vælg dine sessioner ovenfor — de vises her i dagens rækkefølge.","conflict":"⚠ samme tidsrum","lunch":"Frokostpause 🌳","lunchSpk":"Kiez-rummet (stueetagen) — haven","coffee":"Kaffepause 🍦","coffeeSpk":"Tid til is","keynote":"Hovedtale","closing":"Afsluttende bemærkninger og gruppefoto","closingSpk":"Alle mødes i Dickes B","themeIa":"AI og modeller","themeBuilder":"Byg / Praktisk","themeCommunity":"Fællesskab og arrangører","themeTech":"Avanceret teknik","regional":"Regional tid","suggested":"foreslået"},
+  "de": {"kicker":"Community Leads Summit 2026 · Berlin","h1":"Stell deinen Zeitplan zusammen","sub":"Wähle eine Session pro Zeitfenster, um sie <span class='fluo'>hervorzuheben</span>. Sobald ein Zeitfenster belegt ist, werden überschneidende Sessions automatisch nicht verfügbar.","counterLabel":"/ 4 Zeitfenster gewählt","themesHead":"Schnellrouten","themesSub":"Ein Klick wählt die Sessions eines Themas aus (Überschneidungen werden automatisch übersprungen). Klicke dieselbe Route erneut, um alles zu leeren.","bannerTpl":"«{title}» ({start}–{end}) belegt dieses Zeitfenster bereits in deinem Plan — Sessions zur selben Zeit sind nicht verfügbar.","agendaTitle":"Mein Zeitplan","empty":"Noch nichts ausgewählt. Wähle oben deine Sessions — sie erscheinen hier in der Reihenfolge des Tages.","conflict":"⚠ gleiches Zeitfenster","lunch":"Mittagspause 🌳","lunchSpk":"Kiez-Raum (Erdgeschoss) — der Garten","coffee":"Kaffeepause 🍦","coffeeSpk":"Zeit für Eis","keynote":"Keynote","closing":"Schlussworte & Gruppenfoto","closingSpk":"Alle treffen sich in Dickes B","themeIa":"KI & Modelle","themeBuilder":"Builder / Praxis","themeCommunity":"Community & Organisatoren","themeTech":"Anspruchsvolle Technik","regional":"Regionale Zeit","suggested":"empfohlen"},
+  "el": {"kicker":"Σύνοδος Επικεφαλής Κοινοτήτων 2026 · Βερολίνο","h1":"Φτιάξε το πρόγραμμά σου","sub":"Διάλεξε μία συνεδρία ανά ζώνη για να την <span class='fluo'>επισημάνεις</span>. Μόλις μια ζώνη καλυφθεί, οι συνεδρίες που επικαλύπτονται γίνονται αυτόματα μη διαθέσιμες.","counterLabel":"/ 4 επιλεγμένες ζώνες","themesHead":"Γρήγορες διαδρομές","themesSub":"Ένα κλικ επιλέγει τις συνεδρίες ενός θέματος (οι επικαλύψεις παραλείπονται αυτόματα). Κάνε ξανά κλικ στην ίδια διαδρομή για να τα καθαρίσεις όλα.","bannerTpl":"Το «{title}» ({start}–{end}) καταλαμβάνει ήδη αυτή τη ζώνη στο πρόγραμμά σου — οι ταυτόχρονες συνεδρίες δεν είναι διαθέσιμες.","agendaTitle":"Το πρόγραμμά μου","empty":"Δεν έχει επιλεγεί τίποτα ακόμη. Διάλεξε τις συνεδρίες σου παραπάνω — θα εμφανιστούν εδώ με τη σειρά της ημέρας.","conflict":"⚠ ίδια ζώνη","lunch":"Διάλειμμα γεύματος 🌳","lunchSpk":"Αίθουσα Kiez (ισόγειο) — ο κήπος","coffee":"Διάλειμμα καφέ 🍦","coffeeSpk":"Ώρα για παγωτό","keynote":"Κεντρική ομιλία","closing":"Καταληκτικές παρατηρήσεις & ομαδική φωτογραφία","closingSpk":"Όλοι συγκεντρώνονται στο Dickes B","themeIa":"AI & Μοντέλα","themeBuilder":"Builder / Πρακτικά","themeCommunity":"Κοινότητα & Διοργανωτές","themeTech":"Προηγμένη τεχνολογία","regional":"Περιφερειακός χρόνος","suggested":"προτεινόμενο"},
+  "en": {"kicker":"Community Leads Summit 2026 · Berlin","h1":"Build your agenda","sub":"Pick one session per slot to <span class='fluo'>highlight</span> it. Once a slot is taken, sessions that overlap it become unavailable automatically.","counterLabel":"/ 4 slots chosen","themesHead":"Quick tracks","themesSub":"One click selects the sessions of a theme (overlaps are skipped automatically). Click the same track again to clear everything.","bannerTpl":"“{title}” ({start}–{end}) already occupies this slot in your agenda — sessions at the same time are unavailable.","agendaTitle":"My agenda","empty":"Nothing picked yet. Choose your sessions above — they'll appear here in the order of the day.","conflict":"⚠ same slot","lunch":"Lunch break 🌳","lunchSpk":"Kiez room (ground floor) — the garden","coffee":"Coffee break 🍦","coffeeSpk":"It's ice cream time","keynote":"Keynote","closing":"Closing Remarks & Group Photo","closingSpk":"Everyone meets in Dickes B","themeIa":"AI & Models","themeBuilder":"Builder / Hands-on","themeCommunity":"Community & Organizers","themeTech":"Deep Tech","regional":"Regional Time","suggested":"suggested"},
+  "es": {"kicker":"Cumbre de Líderes de Comunidad 2026 · Berlín","h1":"Crea tu agenda","sub":"Elige una sesión por franja para <span class='fluo'>resaltarla</span>. Cuando una franja está ocupada, las sesiones que se solapan con ella quedan no disponibles automáticamente.","counterLabel":"/ 4 franjas elegidas","themesHead":"Rutas rápidas","themesSub":"Un clic selecciona las sesiones de un tema (los solapamientos se omiten automáticamente). Haz clic en la misma ruta para vaciarlo todo.","bannerTpl":"«{title}» ({start}–{end}) ya ocupa esta franja en tu agenda — las sesiones a la misma hora no están disponibles.","agendaTitle":"Mi agenda","empty":"Aún no has elegido nada. Selecciona tus sesiones arriba — aparecerán aquí en el orden del día.","conflict":"⚠ misma franja","lunch":"Pausa para comer 🌳","lunchSpk":"Sala Kiez (planta baja) — el jardín","coffee":"Pausa para el café 🍦","coffeeSpk":"Hora del helado","keynote":"Discurso de apertura","closing":"Palabras de cierre y foto de grupo","closingSpk":"Todos se reúnen en Dickes B","themeIa":"IA y modelos","themeBuilder":"Creación / Práctica","themeCommunity":"Comunidad y organizadores","themeTech":"Tecnología avanzada","regional":"Tiempo regional","suggested":"sugerido"},
+  "et": {"kicker":"Kogukonnajuhtide tippkohtumine 2026 · Berliin","h1":"Koosta oma kava","sub":"Vali igasse vahemikku üks sessioon, et seda <span class='fluo'>esile tõsta</span>. Kui vahemik on hõivatud, muutuvad sellega kattuvad sessioonid automaatselt kättesaamatuks.","counterLabel":"/ 4 valitud ajavahemikku","themesHead":"Kiirrajad","themesSub":"Üks klõps valib teema sessioonid (kattuvused jäetakse automaatselt vahele). Klõpsa sama rada uuesti, et kõik tühjendada.","bannerTpl":"„{title}” ({start}–{end}) hõivab juba selle vahemiku sinu kavas — samaaegsed sessioonid pole saadaval.","agendaTitle":"Minu kava","empty":"Veel pole midagi valitud. Vali oma sessioonid ülal — need ilmuvad siia päeva järjekorras.","conflict":"⚠ sama vahemik","lunch":"Lõunapaus 🌳","lunchSpk":"Kiezi ruum (esimene korrus) — aed","coffee":"Kohvipaus 🍦","coffeeSpk":"Jäätiseaeg","keynote":"Avakõne","closing":"Lõppsõnad ja ühispilt","closingSpk":"Kõik kogunevad Dickes B-sse","themeIa":"AI ja mudelid","themeBuilder":"Ehitamine / Praktika","themeCommunity":"Kogukond ja korraldajad","themeTech":"Tipptehnoloogia","regional":"Piirkondlik aeg","suggested":"soovitatud"},
+  "fi": {"kicker":"Yhteisöjohtajien huippukokous 2026 · Berliini","h1":"Rakenna ohjelmasi","sub":"Valitse yksi istunto kutakin aikaväliä kohden <span class='fluo'>korostaaksesi</span> sen. Kun aikaväli on varattu, sen kanssa päällekkäiset istunnot muuttuvat automaattisesti ei-saatavilla oleviksi.","counterLabel":"/ 4 valittua aikaväliä","themesHead":"Pikareitit","themesSub":"Yksi klikkaus valitsee teeman istunnot (päällekkäisyydet ohitetaan automaattisesti). Klikkaa samaa reittiä uudelleen tyhjentääksesi kaiken.","bannerTpl":"”{title}” ({start}–{end}) varaa jo tämän aikavälin ohjelmassasi — samaan aikaan olevat istunnot eivät ole saatavilla.","agendaTitle":"Oma ohjelmani","empty":"Mitään ei ole vielä valittu. Valitse istuntosi yltä — ne näkyvät tässä päivän järjestyksessä.","conflict":"⚠ sama aikaväli","lunch":"Lounastauko 🌳","lunchSpk":"Kiez-sali (pohjakerros) — puutarha","coffee":"Kahvitauko 🍦","coffeeSpk":"Jäätelön aika","keynote":"Avauspuhe","closing":"Loppusanat ja ryhmäkuva","closingSpk":"Kaikki kokoontuvat Dickes B:hen","themeIa":"Tekoäly ja mallit","themeBuilder":"Rakentaminen / Käytäntö","themeCommunity":"Yhteisö ja järjestäjät","themeTech":"Syvätekniikka","regional":"Alueellinen aika","suggested":"suositeltu"},
+  "fr": {"kicker":"Community Leads Summit 2026 · Berlin","h1":"Construis ton agenda","sub":"Choisis une session dans chaque créneau pour la <span class='fluo'>mettre en évidence</span>. Dès qu'un horaire est pris, les sessions qui s'y superposent se désactivent automatiquement.","counterLabel":"/ 4 créneaux choisis","themesHead":"Parcours rapides","themesSub":"Un clic pré-coche les sessions d'un thème (les chevauchements sont ignorés automatiquement). Re-clique le même parcours pour tout vider.","bannerTpl":"« {title} » ({start}–{end}) occupe déjà ce créneau dans ton agenda — les sessions en même temps sont indisponibles.","agendaTitle":"Mon agenda","empty":"Rien de coché pour l'instant. Choisis tes sessions au-dessus — elles apparaîtront ici dans l'ordre de la journée.","conflict":"⚠ même créneau","lunch":"Pause déjeuner 🌳","lunchSpk":"Salle Kiez (étage 0) — le jardin","coffee":"Pause café 🍦","coffeeSpk":"C'est l'heure de la glace","keynote":"Keynote","closing":"Mot de clôture & photo de groupe","closingSpk":"Tout le monde rejoint Dickes B","themeIa":"IA & Modèles","themeBuilder":"Builder / Hands-on","themeCommunity":"Communauté & Orga","themeTech":"Tech pointue","regional":"Temps régional","suggested":"suggéré"},
+  "ga": {"kicker":"Cruinniú Mullaigh Cheannairí Pobail 2026 · Beirlín","h1":"Cruthaigh do chlár","sub":"Roghnaigh seisiún amháin in aghaidh an sliotáin chun é a <span class='fluo'>aibhsiú</span>. Nuair atá sliotán tógtha, éiríonn seisiúin a fhorluíonn leis do-fhaighte go huathoibríoch.","counterLabel":"/ 4 sliotán roghnaithe","themesHead":"Cosáin thapa","themesSub":"Roghnaíonn cliceáil amháin seisiúin téama (gabhtar thar fhorluí go huathoibríoch). Cliceáil an cosán céanna arís chun gach rud a ghlanadh.","bannerTpl":"Tá “{title}” ({start}–{end}) ag líonadh an sliotáin seo i do chlár cheana — níl seisiúin ag an am céanna ar fáil.","agendaTitle":"Mo chlár","empty":"Níl aon rud roghnaithe go fóill. Roghnaigh do sheisiúin thuas — taispeánfar anseo iad in ord an lae.","conflict":"⚠ sliotán céanna","lunch":"Sos lóin 🌳","lunchSpk":"Seomra Kiez (urlár na talún) — an gairdín","coffee":"Sos caife 🍦","coffeeSpk":"Am uachtar reoite","keynote":"Príomhóráid","closing":"Focail scoir & grianghraf grúpa","closingSpk":"Buaileann gach duine le chéile i Dickes B","themeIa":"IS & Múnlaí","themeBuilder":"Tógáil / Praiticiúil","themeCommunity":"Pobal & Eagraithe","themeTech":"Ardteicneolaíocht","regional":"Am Réigiúnach","suggested":"molta"},
+  "hr": {"kicker":"Summit voditelja zajednica 2026 · Berlin","h1":"Složi svoj raspored","sub":"Odaberi jednu sesiju po terminu da je <span class='fluo'>istakneš</span>. Kad je termin zauzet, sesije koje se s njim preklapaju automatski postaju nedostupne.","counterLabel":"/ 4 odabrana termina","themesHead":"Brze rute","themesSub":"Jedan klik odabire sesije teme (preklapanja se automatski preskaču). Klikni istu rutu ponovno da sve obrišeš.","bannerTpl":"«{title}» ({start}–{end}) već zauzima ovaj termin u tvom rasporedu — istovremene sesije nisu dostupne.","agendaTitle":"Moj raspored","empty":"Još ništa nije odabrano. Odaberi svoje sesije gore — pojavit će se ovdje redoslijedom dana.","conflict":"⚠ isti termin","lunch":"Pauza za ručak 🌳","lunchSpk":"Soba Kiez (prizemlje) — vrt","coffee":"Pauza za kavu 🍦","coffeeSpk":"Vrijeme je za sladoled","keynote":"Uvodno izlaganje","closing":"Završne riječi i grupna fotografija","closingSpk":"Svi se nalaze u Dickes B","themeIa":"UI i modeli","themeBuilder":"Izrada / Praksa","themeCommunity":"Zajednica i organizatori","themeTech":"Napredna tehnologija","regional":"Regionalno vrijeme","suggested":"predloženo"},
+  "hu": {"kicker":"Közösségi Vezetők Csúcstalálkozója 2026 · Berlin","h1":"Állítsd össze a programod","sub":"Válassz egy programot idősávonként, hogy <span class='fluo'>kiemeld</span>. Amint egy idősáv foglalt, az azzal átfedő programok automatikusan elérhetetlenné válnak.","counterLabel":"/ 4 választott idősáv","themesHead":"Gyors útvonalak","themesSub":"Egy kattintás kiválasztja egy téma programjait (az átfedéseket automatikusan kihagyja). Kattints ugyanarra az útvonalra a teljes törléshez.","bannerTpl":"A(z) „{title}” ({start}–{end}) már elfoglalja ezt az idősávot a programodban — az egyidejű programok nem elérhetők.","agendaTitle":"Az én programom","empty":"Még semmi sincs kiválasztva. Válaszd ki a programjaidat fent — itt jelennek meg a nap sorrendjében.","conflict":"⚠ azonos idősáv","lunch":"Ebédszünet 🌳","lunchSpk":"Kiez terem (földszint) — a kert","coffee":"Kávészünet 🍦","coffeeSpk":"Fagylaltidő","keynote":"Nyitóbeszéd","closing":"Záró gondolatok és csoportkép","closingSpk":"Mindenki a Dickes B-ben találkozik","themeIa":"MI és modellek","themeBuilder":"Építés / Gyakorlat","themeCommunity":"Közösség és szervezők","themeTech":"Csúcstechnológia","regional":"Regionális idő","suggested":"javasolt"},
+  "it": {"kicker":"Vertice dei Community Leads 2026 · Berlino","h1":"Costruisci la tua agenda","sub":"Scegli una sessione per fascia per <span class='fluo'>evidenziarla</span>. Quando una fascia è occupata, le sessioni che si sovrappongono diventano automaticamente non disponibili.","counterLabel":"/ 4 fasce scelte","themesHead":"Percorsi rapidi","themesSub":"Un clic seleziona le sessioni di un tema (le sovrapposizioni vengono saltate automaticamente). Clicca di nuovo lo stesso percorso per svuotare tutto.","bannerTpl":"«{title}» ({start}–{end}) occupa già questa fascia nella tua agenda — le sessioni in contemporanea non sono disponibili.","agendaTitle":"La mia agenda","empty":"Ancora niente selezionato. Scegli le tue sessioni qui sopra — appariranno qui nell'ordine della giornata.","conflict":"⚠ stessa fascia","lunch":"Pausa pranzo 🌳","lunchSpk":"Sala Kiez (piano terra) — il giardino","coffee":"Pausa caffè 🍦","coffeeSpk":"È l'ora del gelato","keynote":"Keynote","closing":"Osservazioni finali e foto di gruppo","closingSpk":"Tutti si ritrovano a Dickes B","themeIa":"IA e modelli","themeBuilder":"Builder / Pratica","themeCommunity":"Comunità e organizzatori","themeTech":"Tecnologia avanzata","regional":"Tempo regionale","suggested":"consigliato"},
+  "lt": {"kicker":"Bendruomenių lyderių susitikimas 2026 · Berlynas","h1":"Sukurk savo darbotvarkę","sub":"Pasirink po vieną sesiją kiekvienam tarpsniui, kad ją <span class='fluo'>paryškintum</span>. Kai tarpsnis užimtas, su juo persidengiančios sesijos automatiškai tampa nepasiekiamos.","counterLabel":"/ 4 pasirinkti tarpsniai","themesHead":"Greiti maršrutai","themesSub":"Vienas paspaudimas pažymi temos sesijas (persidengimai automatiškai praleidžiami). Paspausk tą patį maršrutą dar kartą, kad viską išvalytum.","bannerTpl":"„{title}“ ({start}–{end}) jau užima šį tarpsnį tavo darbotvarkėje — tuo pačiu metu vykstančios sesijos nepasiekiamos.","agendaTitle":"Mano darbotvarkė","empty":"Dar nieko nepasirinkta. Pasirink sesijas viršuje — jos pasirodys čia dienos tvarka.","conflict":"⚠ tas pats tarpsnis","lunch":"Pietų pertrauka 🌳","lunchSpk":"Kiez salė (pirmas aukštas) — sodas","coffee":"Kavos pertrauka 🍦","coffeeSpk":"Metas ledams","keynote":"Pagrindinis pranešimas","closing":"Baigiamosios pastabos ir bendra nuotrauka","closingSpk":"Visi renkasi Dickes B","themeIa":"DI ir modeliai","themeBuilder":"Kūrimas / Praktika","themeCommunity":"Bendruomenė ir organizatoriai","themeTech":"Aukštosios technologijos","regional":"Regioninis laikas","suggested":"siūloma"},
+  "lv": {"kicker":"Kopienu līderu samits 2026 · Berlīne","h1":"Izveido savu darba kārtību","sub":"Izvēlies vienu sesiju katrai nišai, lai to <span class='fluo'>izceltu</span>. Tiklīdz niša ir aizņemta, sesijas, kas ar to pārklājas, automātiski kļūst nepieejamas.","counterLabel":"/ 4 izvēlētas nišas","themesHead":"Ātrie maršruti","themesSub":"Viens klikšķis atlasa tēmas sesijas (pārklāšanās tiek automātiski izlaista). Noklikšķini to pašu maršrutu vēlreiz, lai visu notīrītu.","bannerTpl":"«{title}» ({start}–{end}) jau aizņem šo nišu tavā darba kārtībā — vienlaicīgas sesijas nav pieejamas.","agendaTitle":"Mana darba kārtība","empty":"Vēl nekas nav izvēlēts. Izvēlies savas sesijas augšā — tās parādīsies šeit dienas secībā.","conflict":"⚠ tā pati niša","lunch":"Pusdienu pārtraukums 🌳","lunchSpk":"Kiez telpa (pirmais stāvs) — dārzs","coffee":"Kafijas pārtraukums 🍦","coffeeSpk":"Saldējuma laiks","keynote":"Galvenā runa","closing":"Noslēguma vārdi un kopbilde","closingSpk":"Visi pulcējas Dickes B","themeIa":"MI un modeļi","themeBuilder":"Veidošana / Prakse","themeCommunity":"Kopiena un organizatori","themeTech":"Augstās tehnoloģijas","regional":"Reģionālais laiks","suggested":"ieteikts"},
+  "mt": {"kicker":"Summit tal-Mexxejja tal-Komunità 2026 · Berlin","h1":"Ibni l-aġenda tiegħek","sub":"Agħżel sessjoni waħda għal kull ħin biex <span class='fluo'>tenfasizzaha</span>. Ladarba ħin ikun meħud, is-sessjonijiet li jitrikkbu miegħu jsiru awtomatikament mhux disponibbli.","counterLabel":"/ 4 ħinijiet magħżula","themesHead":"Mogħdijiet mgħaġġla","themesSub":"Klikk wieħed jagħżel is-sessjonijiet ta' tema (it-trikkib jinqabeż awtomatikament). Erġa' kklikkja l-istess mogħdija biex tnaddaf kollox.","bannerTpl":"“{title}” ({start}–{end}) diġà jokkupa dan il-ħin fl-aġenda tiegħek — is-sessjonijiet fl-istess ħin mhumiex disponibbli.","agendaTitle":"L-aġenda tiegħi","empty":"Xejn ma ntgħażel s'issa. Agħżel is-sessjonijiet tiegħek hawn fuq — jidhru hawn fl-ordni tal-jum.","conflict":"⚠ l-istess ħin","lunch":"Pawża tal-ikel 🌳","lunchSpk":"Kamra Kiez (art) — il-ġnien","coffee":"Pawża tal-kafè 🍦","coffeeSpk":"Ħin tal-ġelat","keynote":"Diskors ewlieni","closing":"Kummenti tal-għeluq u ritratt tal-grupp","closingSpk":"Kulħadd jiltaqa' f'Dickes B","themeIa":"IA u mudelli","themeBuilder":"Bini / Prattiku","themeCommunity":"Komunità u organizzaturi","themeTech":"Teknoloġija avvanzata","regional":"Ħin reġjonali","suggested":"issuġġerit"},
+  "nl": {"kicker":"Community Leads Summit 2026 · Berlijn","h1":"Stel je agenda samen","sub":"Kies één sessie per slot om die te <span class='fluo'>markeren</span>. Zodra een slot bezet is, worden sessies die ermee overlappen automatisch niet beschikbaar.","counterLabel":"/ 4 slots gekozen","themesHead":"Snelle routes","themesSub":"Eén klik selecteert de sessies van een thema (overlappingen worden automatisch overgeslagen). Klik dezelfde route opnieuw om alles te wissen.","bannerTpl":"«{title}» ({start}–{end}) bezet dit slot al in je agenda — gelijktijdige sessies zijn niet beschikbaar.","agendaTitle":"Mijn agenda","empty":"Nog niets gekozen. Kies hierboven je sessies — ze verschijnen hier in de volgorde van de dag.","conflict":"⚠ zelfde slot","lunch":"Lunchpauze 🌳","lunchSpk":"Kiez-zaal (begane grond) — de tuin","coffee":"Koffiepauze 🍦","coffeeSpk":"Tijd voor ijs","keynote":"Keynote","closing":"Slotwoord & groepsfoto","closingSpk":"Iedereen komt samen in Dickes B","themeIa":"AI & modellen","themeBuilder":"Bouwen / Praktijk","themeCommunity":"Community & organisatoren","themeTech":"Geavanceerde techniek","regional":"Regionale tijd","suggested":"aanbevolen"},
+  "pl": {"kicker":"Szczyt Liderów Społeczności 2026 · Berlin","h1":"Zbuduj swój plan","sub":"Wybierz jedną sesję na każdy przedział, aby ją <span class='fluo'>wyróżnić</span>. Gdy przedział jest zajęty, nakładające się na niego sesje automatycznie stają się niedostępne.","counterLabel":"/ 4 wybrane przedziały","themesHead":"Szybkie ścieżki","themesSub":"Jedno kliknięcie zaznacza sesje danego tematu (nakładające się są automatycznie pomijane). Kliknij tę samą ścieżkę ponownie, aby wszystko wyczyścić.","bannerTpl":"„{title}” ({start}–{end}) już zajmuje ten przedział w Twoim planie — równoległe sesje są niedostępne.","agendaTitle":"Mój plan","empty":"Nic jeszcze nie wybrano. Wybierz swoje sesje powyżej — pojawią się tutaj w kolejności dnia.","conflict":"⚠ ten sam przedział","lunch":"Przerwa na lunch 🌳","lunchSpk":"Sala Kiez (parter) — ogród","coffee":"Przerwa na kawę 🍦","coffeeSpk":"Czas na lody","keynote":"Przemówienie otwierające","closing":"Słowo końcowe i zdjęcie grupowe","closingSpk":"Wszyscy spotykają się w Dickes B","themeIa":"SI i modele","themeBuilder":"Tworzenie / Praktyka","themeCommunity":"Społeczność i organizatorzy","themeTech":"Zaawansowana technika","regional":"Czas regionalny","suggested":"sugerowane"},
+  "pt": {"kicker":"Cimeira de Líderes de Comunidade 2026 · Berlim","h1":"Cria a tua agenda","sub":"Escolhe uma sessão por intervalo para a <span class='fluo'>destacar</span>. Assim que um intervalo está ocupado, as sessões que se sobrepõem ficam indisponíveis automaticamente.","counterLabel":"/ 4 intervalos escolhidos","themesHead":"Percursos rápidos","themesSub":"Um clique seleciona as sessões de um tema (as sobreposições são ignoradas automaticamente). Clica no mesmo percurso para limpar tudo.","bannerTpl":"«{title}» ({start}–{end}) já ocupa este intervalo na tua agenda — as sessões em simultâneo estão indisponíveis.","agendaTitle":"A minha agenda","empty":"Ainda nada escolhido. Escolhe as tuas sessões acima — aparecerão aqui pela ordem do dia.","conflict":"⚠ mesmo intervalo","lunch":"Pausa para almoço 🌳","lunchSpk":"Sala Kiez (rés do chão) — o jardim","coffee":"Pausa para café 🍦","coffeeSpk":"Hora do gelado","keynote":"Discurso de abertura","closing":"Considerações finais e foto de grupo","closingSpk":"Todos se reúnem em Dickes B","themeIa":"IA e modelos","themeBuilder":"Construção / Prática","themeCommunity":"Comunidade e organizadores","themeTech":"Tecnologia avançada","regional":"Tempo regional","suggested":"sugerido"},
+  "ro": {"kicker":"Summitul Liderilor de Comunitate 2026 · Berlin","h1":"Construiește-ți agenda","sub":"Alege o sesiune pe interval pentru a o <span class='fluo'>evidenția</span>. Odată ce un interval e ocupat, sesiunile care se suprapun devin automat indisponibile.","counterLabel":"/ 4 intervale alese","themesHead":"Trasee rapide","themesSub":"Un clic selectează sesiunile unei teme (suprapunerile sunt omise automat). Apasă din nou același traseu pentru a goli tot.","bannerTpl":"„{title}” ({start}–{end}) ocupă deja acest interval în agenda ta — sesiunile simultane sunt indisponibile.","agendaTitle":"Agenda mea","empty":"Nimic ales încă. Alege-ți sesiunile mai sus — vor apărea aici în ordinea zilei.","conflict":"⚠ același interval","lunch":"Pauză de prânz 🌳","lunchSpk":"Sala Kiez (parter) — grădina","coffee":"Pauză de cafea 🍦","coffeeSpk":"E timpul pentru înghețată","keynote":"Discurs principal","closing":"Cuvânt de încheiere și fotografie de grup","closingSpk":"Toți se întâlnesc în Dickes B","themeIa":"IA și modele","themeBuilder":"Construire / Practică","themeCommunity":"Comunitate și organizatori","themeTech":"Tehnologie avansată","regional":"Timp regional","suggested":"sugerat"},
+  "sk": {"kicker":"Samit lídrov komunít 2026 · Berlín","h1":"Zostav si svoj program","sub":"Vyber jednu reláciu na každý blok, aby sa <span class='fluo'>zvýraznila</span>. Hneď ako je blok obsadený, relácie, ktoré sa s ním prekrývajú, sa automaticky stanú nedostupnými.","counterLabel":"/ 4 zvolené bloky","themesHead":"Rýchle trasy","themesSub":"Jedno kliknutie vyberie relácie témy (prekrytia sa automaticky preskočia). Klikni na rovnakú trasu znova pre vymazanie všetkého.","bannerTpl":"„{title}“ ({start}–{end}) už zaberá tento blok v tvojom programe — súbežné relácie sú nedostupné.","agendaTitle":"Môj program","empty":"Zatiaľ nič nie je vybrané. Vyber si relácie vyššie — objavia sa tu v poradí dňa.","conflict":"⚠ rovnaký blok","lunch":"Obedná prestávka 🌳","lunchSpk":"Miestnosť Kiez (prízemie) — záhrada","coffee":"Prestávka na kávu 🍦","coffeeSpk":"Čas na zmrzlinu","keynote":"Úvodný prejav","closing":"Záverečné slová a spoločná fotka","closingSpk":"Všetci sa stretnú v Dickes B","themeIa":"AI a modely","themeBuilder":"Tvorba / Prax","themeCommunity":"Komunita a organizátori","themeTech":"Pokročilá technika","regional":"Regionálny čas","suggested":"odporúčané"},
+  "sl": {"kicker":"Vrh vodij skupnosti 2026 · Berlin","h1":"Sestavi svoj urnik","sub":"Izberi eno sejo na termin, da jo <span class='fluo'>označiš</span>. Ko je termin zaseden, seje, ki se z njim prekrivajo, samodejno postanejo nedostopne.","counterLabel":"/ 4 izbrani termini","themesHead":"Hitre poti","themesSub":"En klik izbere seje teme (prekrivanja se samodejno preskočijo). Znova klikni isto pot, da vse počistiš.","bannerTpl":"«{title}» ({start}–{end}) ta termin v tvojem urniku že zaseda — sočasne seje niso na voljo.","agendaTitle":"Moj urnik","empty":"Še nič ni izbrano. Izberi svoje seje zgoraj — pojavile se bodo tukaj v vrstnem redu dneva.","conflict":"⚠ isti termin","lunch":"Odmor za kosilo 🌳","lunchSpk":"Soba Kiez (pritličje) — vrt","coffee":"Odmor za kavo 🍦","coffeeSpk":"Čas za sladoled","keynote":"Uvodni govor","closing":"Zaključne besede in skupinska fotografija","closingSpk":"Vsi se zberejo v Dickes B","themeIa":"UI in modeli","themeBuilder":"Gradnja / Praksa","themeCommunity":"Skupnost in organizatorji","themeTech":"Napredna tehnologija","regional":"Regionalni čas","suggested":"predlagano"},
+  "sv": {"kicker":"Community Leads Summit 2026 · Berlin","h1":"Bygg din agenda","sub":"Välj en session per lucka för att <span class='fluo'>markera</span> den. När en lucka är upptagen blir sessioner som överlappar den automatiskt otillgängliga.","counterLabel":"/ 4 valda luckor","themesHead":"Snabbspår","themesSub":"Ett klick väljer sessionerna i ett tema (överlappningar hoppas över automatiskt). Klicka på samma spår igen för att rensa allt.","bannerTpl":"”{title}” ({start}–{end}) upptar redan den här luckan i din agenda — samtidiga sessioner är otillgängliga.","agendaTitle":"Min agenda","empty":"Inget valt än. Välj dina sessioner ovan — de visas här i dagens ordning.","conflict":"⚠ samma lucka","lunch":"Lunchpaus 🌳","lunchSpk":"Kiez-rummet (bottenvåningen) — trädgården","coffee":"Kaffepaus 🍦","coffeeSpk":"Dags för glass","keynote":"Keynote","closing":"Avslutande ord och gruppfoto","closingSpk":"Alla samlas i Dickes B","themeIa":"AI och modeller","themeBuilder":"Bygga / Praktiskt","themeCommunity":"Community och arrangörer","themeTech":"Avancerad teknik","regional":"Regional tid","suggested":"föreslås"}
+};
+
+const LANG_NAMES = {
+  bg:"Български", cs:"Čeština", da:"Dansk", de:"Deutsch", el:"Ελληνικά",
+  en:"English", es:"Español", et:"Eesti", fi:"Suomi", fr:"Français",
+  ga:"Gaeilge", hr:"Hrvatski", hu:"Magyar", it:"Italiano", lt:"Lietuvių",
+  lv:"Latviešu", mt:"Malti", nl:"Nederlands", pl:"Polski", pt:"Português",
+  ro:"Română", sk:"Slovenčina", sl:"Slovenščina", sv:"Svenska"
+};
+
+// ══ DATA (English, never translated) ════════════════════════════════
+const ROOMS = { dickesb:"Dickes B", luftballons:"99 Luftballons", sternenhimmel:"Sternenhimmel", zukunft:"Zukunftwerkstatt" };
+const toMin = (t) => { const [h,m] = t.split(":").map(Number); return h*60+m; };
+const esc = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const overlaps = (a,b) => toMin(a.start) < toMin(b.end) && toMin(b.start) < toMin(a.end);
+
+// Fixed items: title/speaker keys reference UI (translatable labels), rest stays English
+const FIXED = [
+  { id:"keynote", start:"9:15", end:"10:00", room:"dickesb", tkey:"keynote", spkKey:null, spk:"Katya Vinnichenko & Matt Thompson" },
+  { id:"lunch", start:"12:00", end:"13:00", room:null, tkey:"lunch", spkKey:"lunchSpk" },
+  { id:"coffee", start:"14:30", end:"15:00", room:null, tkey:"coffee", spkKey:"coffeeSpk" },
+  { id:"closing", start:"16:00", end:"16:30", room:"dickesb", tkey:"closing", spkKey:"closingSpk" },
+];
+
+const SLOTS = [
+  { id:"slot1", label:"Block 1", time:"10:00 – 11:20", options:[
+    { id:"s1-db", room:"dickesb", start:"10:00", end:"11:20", title:"What's new in Gemini? + Generative AI and Art", speaker:"Patrick Löber · Daniela Petruzalek", desc:"Two back-to-back talks: what's new in Gemini (10:00–10:40), then “Is it Really Just Slop?” on AI and art (10:40–11:20)." },
+    { id:"s1-lb", room:"luftballons", start:"10:00", end:"11:20", title:"Building AI apps with the Google ecosystem", speaker:"Marina Coelho", desc:"Hands-on session on the modern Builder Stack: from prototype to UI, AI features and a scalable backend." },
+    { id:"s1-sh", room:"sternenhimmel", start:"10:00", end:"11:20", title:"The Art of Engaging Tech Talks", speaker:"Zack Akil", desc:"Workshop on delivering memorable, entertaining technical content. 250+ talks of experience, live demos included." },
+    { id:"s1-zw", room:"zukunft", start:"10:00", end:"12:00", title:"GenMedia + Gemma Roundtables", speaker:"Guillaume Vernade · Gus Martins · Ian Ballantyne", desc:"GenMedia roundtable (10:00–11:00) then Gemma (11:00–12:00). ⚠ Runs until 12:00, overlaps Block 2." },
+  ]},
+  { id:"slot2", label:"Block 2", time:"11:30 – 12:00", options:[
+    { id:"s2-db", room:"dickesb", start:"11:30", end:"12:00", title:"Open Sesame to the Monolith", speaker:"Abdelfettah Sghiouar", desc:"Raiding legacy code with multi-agent AI. Real case: a Rails monolith modernized in 5 days." },
+    { id:"s2-lb", room:"luftballons", start:"11:30", end:"12:00", title:"Google Workspace in the Agentic Era", speaker:"Chanel Greco", desc:"New agentic Workspace tools to automate tasks and integrations in a unified, secure environment." },
+    { id:"s2-sh", room:"sternenhimmel", start:"11:30", end:"12:00", title:"What Humanoid Robots Still Can't Do", speaker:"Martin Krcek", desc:"Under the hood of humanoids: ROS2/DDS architecture, vision, LiDAR, LLM integration. Examples from the Senti robot." },
+    { id:"s2-zw", room:"zukunft", start:"11:00", end:"12:00", title:"Gemma Roundtable (continued)", speaker:"Gus Martins · Ian Ballantyne", desc:"Continuation of the Gemma roundtable until 12:00." },
+  ]},
+  { id:"slot3", label:"Block 3", time:"13:00 – 14:30", options:[
+    { id:"s3-db", room:"dickesb", start:"13:00", end:"14:30", title:"GDG Organizer's Playbook + Gemma 4 everyone", speaker:"Alessandro Palmieri · Gus Martins", desc:"Community platforms playbook (13:00–13:40) then Gemma 4 (13:50–14:30)." },
+    { id:"s3-lb", room:"luftballons", start:"13:00", end:"14:30", title:"Gemini Workshop — Multimodal & Long-Context", speaker:"Laurent Picard", desc:"Interactive workshop: multimodal video transcription, knowledge graphs over 1M tokens, image pipelines. Bring your laptop!" },
+    { id:"s3-sh", room:"sternenhimmel", start:"13:00", end:"14:30", title:"Community Sessions", speaker:"TBA", desc:"Two community sessions (13:00–13:40 and 13:50–14:30). Details coming soon." },
+    { id:"s3-zw", room:"zukunft", start:"13:00", end:"14:15", title:"Regulatory Impact for Developer Ecosystem", speaker:"Nathalie Pereira", desc:"The EU Digital Rulebook as an architectural constraint: privacy by design, minor protection, Android (13:00–14:15)." },
+  ]},
+  { id:"slot4", label:"regional", time:"15:00 – 16:00", options:[
+    { id:"s4-db", room:"dickesb", start:"15:00", end:"16:00", title:"DACH & CEE", speaker:"Katsiaryna Skwarek", desc:"Regional time for DACH & Central/Eastern Europe." },
+    { id:"s4-lb", room:"luftballons", start:"15:00", end:"16:00", title:"Southern Europe", speaker:"Alexis Einhorn", desc:"Regional time for Southern Europe." },
+    { id:"s4-sh", room:"sternenhimmel", start:"15:00", end:"16:00", title:"UK/I, France, Benelux & Nordics", speaker:"Pauline Bonnin", desc:"Regional time — likely yours if you're in France 🇫🇷", recommended:true },
+    { id:"s4-zw", room:"zukunft", start:"15:00", end:"16:00", title:"Developers & Companies Sentiment", speaker:"Noa Havazelet", desc:"Roundtable on developer and company sentiment." },
+  ]},
+];
+
+const OPT = {};
+SLOTS.forEach(s => s.options.forEach(o => OPT[o.id] = o));
+
+const THEMES = [
+  { id:"ia", labelKey:"themeIa", icon:"🤖", opts:["s1-db","s2-zw","s3-db","s4-sh"] },
+  { id:"builder", labelKey:"themeBuilder", icon:"🛠️", opts:["s1-lb","s2-lb","s3-lb","s4-sh"] },
+  { id:"communaute", labelKey:"themeCommunity", icon:"👥", opts:["s1-sh","s2-db","s3-sh","s4-sh"] },
+  { id:"techpointue", labelKey:"themeTech", icon:"🔬", opts:["s1-zw","s2-sh","s3-zw","s4-sh"] },
+];
+
+// ══ STATE ═══════════════════════════════════════════════════════════
+const picks = {};
+let activeTheme = null;
+let lang = pickInitialLang();
+const t = (k) => (UI[lang] && UI[lang][k]) || UI.en[k];
+
+function pickInitialLang() {
+  const nav = (navigator.languages || [navigator.language || "en"]);
+  for (const l of nav) {
+    const code = l.toLowerCase().split("-")[0];
+    if (UI[code]) return code;
+  }
+  return "en";
+}
+
+function conflictFor(slotId, opt) {
+  for (const s of SLOTS) {
+    if (s.id === slotId) continue;
+    const chosenId = picks[s.id];
+    if (!chosenId) continue;
+    if (overlaps(opt, OPT[chosenId])) return OPT[chosenId];
+  }
+  return null;
+}
+
+// ══ BUILD LANGUAGE SELECTOR ═════════════════════════════════════════
+const langsel = document.getElementById("langsel");
+Object.keys(LANG_NAMES).sort((a,b) => LANG_NAMES[a].localeCompare(LANG_NAMES[b]))
+  .forEach(code => {
+    const o = document.createElement("option");
+    o.value = code; o.textContent = LANG_NAMES[code];
+    langsel.appendChild(o);
+  });
+langsel.value = lang;
+langsel.addEventListener("change", () => { lang = langsel.value; document.documentElement.lang = lang; applyLang(); render(); });
+
+// ══ BUILD SLOTS ═════════════════════════════════════════════════════
+const slotsEl = document.getElementById("slots");
+SLOTS.forEach(slot => {
+  const sec = document.createElement("section");
+  sec.className = "slot";
+  sec.innerHTML = `<div class="slot-head"><div class="slot-time">${slot.time}</div><div class="slot-label" data-slotlabel="${slot.id}">${slot.label}</div></div><div class="cards"></div>`;
+  const cardsEl = sec.querySelector(".cards");
+  slot.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "card"; btn.setAttribute("aria-pressed","false");
+    btn.dataset.slot = slot.id; btn.dataset.opt = opt.id;
+    btn.innerHTML = `
+      <span class="conflict-badge" data-conflict></span>
+      <div class="card-top">
+        <span class="check"></span>
+        <span class="room-tag">${ROOMS[opt.room]}</span>
+        <span class="time-tag">${opt.start}–${opt.end}</span>
+        ${opt.recommended ? '<span class="reco" data-reco></span>' : ''}
+      </div>
+      <div class="card-title">${esc(opt.title)}</div>
+      <div class="card-speaker">${esc(opt.speaker)}</div>
+      <div class="card-desc">${esc(opt.desc)}</div>`;
+    btn.addEventListener("click", () => toggle(slot.id, opt.id));
+    cardsEl.appendChild(btn);
+  });
+  slotsEl.appendChild(sec);
+});
+
+// ══ BUILD THEME BUTTONS ═════════════════════════════════════════════
+const themeBtnsEl = document.getElementById("theme-btns");
+THEMES.forEach(theme => {
+  const btn = document.createElement("button");
+  btn.className = "theme-btn"; btn.dataset.theme = theme.id;
+  btn.innerHTML = `<span data-themelabel>${theme.icon}</span>`;
+  btn.addEventListener("click", () => applyTheme(theme.id));
+  themeBtnsEl.appendChild(btn);
+});
+
+function applyTheme(themeId) {
+  Object.keys(picks).forEach(k => delete picks[k]);
+  if (activeTheme === themeId) { activeTheme = null; render(); return; }
+  const theme = THEMES.find(t => t.id === themeId);
+  theme.opts.forEach(optId => {
+    const opt = OPT[optId];
+    const slot = SLOTS.find(s => s.options.some(o => o.id === optId));
+    if (picks[slot.id]) return;
+    if (conflictFor(slot.id, opt)) return;
+    picks[slot.id] = optId;
+  });
+  activeTheme = themeId;
+  render();
+}
+
+function toggle(slotId, optId) {
+  const opt = OPT[optId];
+  const isActive = picks[slotId] === optId;
+  if (!isActive && conflictFor(slotId, opt)) return;
+  picks[slotId] = isActive ? undefined : optId;
+  activeTheme = null;
+  render();
+}
+
+// ══ APPLY LANGUAGE TO STATIC TEXT ═══════════════════════════════════
+function applyLang() {
+  document.getElementById("t-kicker").textContent = t("kicker");
+  document.getElementById("t-h1").textContent = t("h1");
+  document.getElementById("t-sub").innerHTML = t("sub");
+  document.getElementById("t-counterLabel").textContent = t("counterLabel");
+  document.getElementById("t-themesHead").textContent = t("themesHead");
+  document.getElementById("t-themesSub").textContent = t("themesSub");
+  document.getElementById("t-agendaTitle").textContent = t("agendaTitle");
+  document.querySelector('[data-slotlabel="slot4"]').textContent = t("regional");
+  // recommended badge
+  const reco = document.querySelector("[data-reco]");
+  if (reco) reco.textContent = t("suggested");
+  // conflict badges + theme labels updated in render()
+}
+
+// ══ RENDER ══════════════════════════════════════════════════════════
+function render() {
+  let anyConflict = null;
+
+  document.querySelectorAll(".card").forEach(btn => {
+    const slotId = btn.dataset.slot, optId = btn.dataset.opt, opt = OPT[optId];
+    const active = picks[slotId] === optId;
+    const conflict = !active ? conflictFor(slotId, opt) : null;
+    const blocked = !!conflict;
+    if (blocked && !anyConflict) anyConflict = { opt, conflict };
+    btn.classList.toggle("active", active);
+    btn.classList.toggle("blocked", blocked);
+    btn.setAttribute("aria-pressed", active ? "true":"false");
+    btn.setAttribute("aria-disabled", blocked ? "true":"false");
+    const check = btn.querySelector(".check");
+    check.classList.toggle("on", active);
+    check.textContent = active ? "✓" : "";
+    const cb = btn.querySelector("[data-conflict]");
+    if (cb) cb.textContent = t("conflict");
+  });
+
+  const count = Object.values(picks).filter(Boolean).length;
+  document.getElementById("count").textContent = count;
+
+  document.querySelectorAll(".theme-btn").forEach(btn => {
+    const theme = THEMES.find(t => t.id === btn.dataset.theme);
+    btn.classList.toggle("on", activeTheme === theme.id);
+    const lbl = btn.querySelector("[data-themelabel]");
+    lbl.textContent = `${theme.icon} ${t(theme.labelKey)}`;
+  });
+
+  const banner = document.getElementById("banner");
+  if (anyConflict) {
+    document.getElementById("banner-text").textContent =
+      t("bannerTpl").replace("{title}", anyConflict.conflict.title)
+        .replace("{start}", anyConflict.conflict.start).replace("{end}", anyConflict.conflict.end);
+    banner.classList.add("show");
+  } else banner.classList.remove("show");
+
+  // agenda
+  const items = FIXED.map(f => ({
+    id:f.id, start:f.start, end:f.end, room:f.room,
+    title: f.tkey ? t(f.tkey) : f.title,
+    speaker: f.spkKey ? t(f.spkKey) : f.spk
+  }));
+  SLOTS.forEach(slot => {
+    const pickId = picks[slot.id];
+    if (pickId) { const o = OPT[pickId]; items.push({ id:o.id, start:o.start, end:o.end, title:o.title, room:o.room, speaker:o.speaker }); }
+  });
+  items.sort((a,b) => toMin(a.start) - toMin(b.start));
+
+  let html = "";
+  if (count === 0) html += `<p class="empty">${esc(t("empty"))}</p>`;
+  html += '<div class="timeline">';
+  items.forEach(item => {
+    const isPick = !FIXED.some(f => f.id === item.id);
+    html += `<div class="row ${isPick?'pick':''}"><div class="row-time"><div class="row-start">${item.start}</div><div class="row-end">${item.end}</div></div><div class="row-body"><div class="row-title">${esc(item.title)}</div><div class="row-meta">${item.room?`<span class="row-room">${ROOMS[item.room]}</span>`:''}<span class="row-speaker">${esc(item.speaker)}</span></div></div></div>`;
+  });
+  html += '</div>';
+  document.getElementById("agenda").innerHTML = html;
+}
+
+// ══ INIT ════════════════════════════════════════════════════════════
+document.documentElement.lang = lang;
+applyLang();
+render();
+</script>
+</body>
+</html>
